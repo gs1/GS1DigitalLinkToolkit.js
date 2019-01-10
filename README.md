@@ -26,7 +26,7 @@ The GS1 Digital Link syntax is defined in https://www.gs1.org/standards/Digital-
 
 A demonstration tool is available at https://id.gs1.org/uritool although it does not currently use this toolkit
 
-See also https://github.com/gs1/digital-link.js for a related toolkit for GS1 Digital Link
+See also https://github.com/gs1/digital-link.js for a related toolkit for constructing and validating GS1 Digital Link URIs
 
 ## Overview
 
