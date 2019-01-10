@@ -32,7 +32,7 @@ See also https://github.com/gs1/digital-link.js for a related toolkit for GS1 Di
 
 This toolkit provides six translation methods, as indicated in the overview diagram below
 
-![Overview diagram](GS1DigitalLinkToolkitJSoverview.png)
+![Overview diagram](GS1DigitalLinkToolkitJS-overview.png)
 
 
 ## Installation
