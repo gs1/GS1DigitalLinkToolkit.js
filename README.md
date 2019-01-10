@@ -289,6 +289,7 @@ returns a list of objects containing information about each GS1 Application Iden
 
 returns an associative array that maps a GS1 Application Identifier to the index (1 = the first digit) for the position of the check digit within GS1 Application Identifiers that have check digits
 returns 'L' (last) if the check digit is in the last position
+e.g. returns 14 for ITIP, AI (8006)
 
 ### aiRegex
 
