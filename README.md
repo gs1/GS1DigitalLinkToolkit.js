@@ -4,6 +4,7 @@ This is a JavaScript toolkit for translating between GS1 element strings and GS1
 
 * [Introduction](#introduction)
 * [Overview](#overview)
+* [Demo](#demo)
 * [Installation](#installation)
 * [Basic Usage](#basic-usage)
 * [Additional Methods](#additional-methods)
@@ -34,6 +35,9 @@ This toolkit provides six translation methods, as indicated in the overview diag
 
 ![Overview diagram](GS1DigitalLinkToolkitJS-overview.png)
 
+## Demo
+
+A simple demonstration is available in [/src/demo](src/demo.html)
 
 ## Installation
 
