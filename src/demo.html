@@ -8,6 +8,14 @@ h1 { text-align: center; }
 table { width: 100%; }
 td.label { width: 14em; }
 td.demobutton { width: 4em; }
+tr.elementString { background-color: #CCCCFF;}
+tr.options { background-color: #EEEEEE;}
+tr.digitalLink { background-color: #FFD9CC;}
+input.elementString { background-color: #CCCCFF;}
+input.digitalLink { background-color: #FFD9CC;}
+select.elementString { background-color: #CCCCFF;}
+select.digitalLink { background-color: #FFD9CC;}
+
 input {width: 100%;}
 </style>
 </head>
@@ -20,8 +28,9 @@ input {width: 100%;}
 <div id="app1">
 <h2>Convert GS1 element strings to GS1 Digital Link URI</h2>
 <table>
-<tr><td class="label">Input: Element string</td><td><input type="text" v-model="elementStringInput"></td><td class="demobutton"><input type="button" value="Example" @click="demo1"></td></tr>
-<tr><td class="label">Output: GS1 Digital Link URI</td><td colspan="2"><input type="text" v-model="digitalLinkOutput"></td></tr>
+<tr class="elementString"><td class="label">Input: Element string</td><td><input class="elementString" type="text" v-model="elementStringInput"></td><td class="demobutton"><input class="elementString" type="button" value="Example" @click="demo1"></td></tr>
+<tr class="options"><td class="label">Options</td><td colspan="2">Use alphabetic short names e.g. /gtin/ <select  class="digitalLink" v-model="shortnames"><option value="true">Yes</option><option value="false">No</option></select><br>Custom URI stem&nbsp;<input type="text" class="digitalLink" v-model="uristem" style="width: 80%"></td></tr>
+<tr class="digitalLink"><td class="label">Output: GS1 Digital Link URI</td><td colspan="2"><input class="digitalLink" type="text" v-model="digitalLinkOutput"></td></tr>
 <tr><td class="label">Error:</td><td colspan="2"><input type="text" v-model="error1"></td></tr>
 </table>
 &nbsp;<br/>
@@ -29,8 +38,9 @@ input {width: 100%;}
 &nbsp;<br/>
 <h2>Convert GS1 Digital Link URI to GS1 element strings</h2>
 <table>
-<tr><td class="label">Input: GS1 Digital Link URI</td><td><input type="text" v-model="digitalLinkInput"></td><td class="demobutton"><input type="button" value="Example"  @click="demo2"></td></tr>
-<tr><td class="label">Output: Element string</td><td colspan="2"><input type="text" v-model="elementStringOutput"></td></tr>
+<tr class="digitalLink"><td class="label">Input: GS1 Digital Link URI</td><td><input  class="digitalLink" type="text" v-model="digitalLinkInput"></td><td class="demobutton"><input  class="digitalLink" type="button" value="Example"  @click="demo2"></td></tr>
+<tr class="options"><td class="label">Options</td><td colspan="2">Use brackets / human-readable output <select  class="elementString" v-model="brackets"><option value="true">Yes</option><option value="false">No</option></select></td></tr>
+<tr class="elementString"><td class="label">Output: Element string</td><td colspan="2"><input class="elementString" type="text" v-model="elementStringOutput"></td></tr>
 <tr><td class="label">Error:</td><td colspan="2"><input type="text" v-model="error2"></td></tr>
 </table>
 
@@ -40,6 +50,9 @@ var digitalLinkInput = "";
 var elementStringInput = "";
 var error1 = "";
 var error2 = "";
+var shortnames="true";
+var uristem="http://example.org";
+var brackets="true";
 var gs1dlt = new GS1DigitalLinkToolkit();
 
 
@@ -50,14 +63,17 @@ var gs1dlt = new GS1DigitalLinkToolkit();
 			digitalLinkInput : digitalLinkInput,
 			error1: error1,
 			error2: error2,
-			gs1dlt : gs1dlt
+			gs1dlt : gs1dlt,
+			shortnames: shortnames,
+			uristem: uristem,
+			brackets: brackets
 		},
 		computed : {
 			digitalLinkOutput : function() {
 				if (this.elementStringInput !== "") {
 					try {
 						this.error1="";
-						return gs1dlt.gs1ElementStringsToGS1DigitalLink(this.elementStringInput, true, 'http://example.org');			
+						return gs1dlt.gs1ElementStringsToGS1DigitalLink(this.elementStringInput, (this.shortnames =="true"), this.uristem);			
 					} catch(err) {
 						this.digitalLinkOutput="";
 						this.error1=err;
@@ -71,7 +87,7 @@ var gs1dlt = new GS1DigitalLinkToolkit();
 				if (this.digitalLinkInput !== "") {
 					try {
 						this.error2="";
-						return gs1dlt.gs1digitalLinkToGS1elementStrings(this.digitalLinkInput, true);
+						return gs1dlt.gs1digitalLinkToGS1elementStrings(this.digitalLinkInput, (this.brackets =="true"));
 					} catch(err) {
 						this.elementStringOutput="";
 						this.error2=err;
