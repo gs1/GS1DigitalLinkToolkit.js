@@ -348,5 +348,5 @@ Neither GS1 nor the contributors accept any liability for its use nor for any da
 
 ## Licence
 
-Apache licence
+Apache-2.0 licence
 
