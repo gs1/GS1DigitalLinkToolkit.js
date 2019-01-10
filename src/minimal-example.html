@@ -1,0 +1,119 @@
+<html>
+<head>
+<script src="GS1DigitalLinkToolkit.js"></script>
+</head>
+<body>
+<p>Please see JavaScript Developer Console in your browser</p>
+
+
+<script language="javascript">
+var gs1dlt = new GS1DigitalLinkToolkit();
+
+var elementStrings="(3103)000189(01)05412345000013(3923)2172(10)ABC&+123";
+try {
+	var gs1DigitalLinkURI = gs1dlt.gs1ElementStringsToGS1DigitalLink(elementStrings, true, 'http://example.org');
+	console.log("gs1DigitalLinkURI="+gs1DigitalLinkURI); // 
+} catch(err) {
+	console.log(err);
+}	
+
+var gs1dlt = new GS1DigitalLinkToolkit();
+
+var elementStringsNoBrackets="3103000189010541234500001339232172"+gs1dlt.groupSeparator+"10ABC&+123";
+try {
+	var gs1DigitalLinkURI = gs1dlt.gs1ElementStringsToGS1DigitalLink(elementStringsNoBrackets, false, null);
+	console.log("gs1DigitalLinkURI="+gs1DigitalLinkURI); //
+} catch(err) {
+	console.log(err);
+}	
+
+var gs1dlt = new GS1DigitalLinkToolkit();
+
+var gs1DigitalLinkURI = "http://mh1.eu/gtin/054123450013/lot/ABC%26%2B123?3103=000189&3923=2172";
+
+try {
+	var gs1ElementStrings = gs1dlt.gs1digitalLinkToGS1elementStrings(gs1DigitalLinkURI, true);
+	console.log("gs1ElementStrings="+gs1ElementStrings); // 
+} catch(err) {
+	console.log(err);
+}	
+
+var gs1dlt = new GS1DigitalLinkToolkit();
+
+var gs1DigitalLinkURI = "http://mh1.eu/gtin/054123450013/lot/ABC%26%2B123?3103=000189&3923=2172";
+
+try {
+	var gs1ElementStrings = gs1dlt.gs1digitalLinkToGS1elementStrings(gs1DigitalLinkURI, false);
+	console.log("gs1ElementStrings="+gs1ElementStrings); // 
+} catch(err) {
+	console.log(err);
+}	
+
+var gs1dlt = new GS1DigitalLinkToolkit();
+
+var elementStrings="(3103)000189(01)05412345000013(3923)2172(10)ABC&+123";
+try {
+	var gs1Array = gs1dlt.extractFromGS1elementStrings(elementStrings);
+	console.log("gs1Array="+JSON.stringify(gs1Array)); 
+	//  gs1Array={"10":"ABC&+123","3103":"000189","3923":"2172","01":"05412345000013"}
+	
+} catch(err) {
+	console.log(err);
+}	
+
+var gs1dlt = new GS1DigitalLinkToolkit();
+
+var gs1DigitalLinkURI = "http://example.org/gtin/054123450013/lot/ABC%26%2B123?3103=000189&3923=2172";
+try {
+	var gs1Array = gs1dlt.extractFromGS1digitalLink(gs1DigitalLinkURI);
+	console.log("gs1Array="+JSON.stringify(gs1Array)); 
+	//  gs1Array={"10":"ABC&+123","3103":"000189","3923":"2172","01":"00054123450013"}
+	
+} catch(err) {
+	console.log(err);
+}	
+
+
+var gs1dlt = new GS1DigitalLinkToolkit();
+
+var gs1Array={"10":"ABC&+123","3103":"000189","3923":"2172","01":"00054123450013"};
+
+try {
+	var gs1DigitalLinkURI = gs1dlt.buildGS1digitalLink(gs1Array,true,'https://example.org');
+	console.log("gs1DigitalLinkURI="+gs1DigitalLinkURI); 
+	//  gs1DigitalLinkURI=https://example.org/gtin/00054123450013/lot/ABC%26%2B123?3103=000189&3923=2172
+	
+} catch(err) {
+	console.log(err);
+}	
+
+var gs1dlt = new GS1DigitalLinkToolkit();
+
+var gs1Array={"10":"ABC&+123","3103":"000189","3923":"2172","01":"00054123450013"};
+
+try {
+	var gs1ElementStrings = gs1dlt.buildGS1elementStrings(gs1Array,true);
+	console.log("gs1ElementStrings="+gs1ElementStrings); 
+	//  gs1ElementStrings=(01)00054123450013(10)ABC&+123(3103)000189(3923)2172
+	
+} catch(err) {
+	console.log(err);
+}	
+
+/*
+var gs1dlt = new GS1DigitalLinkToolkit();
+console.log("gs1dlt.aitable = "+JSON.stringify(gs1dlt.aitable));
+console.log("gs1dlt.aiCheckDigitPosition = "+JSON.stringify(gs1dlt.aiCheckDigitPosition));
+console.log("gs1dlt.aiRegex = "+JSON.stringify(gs1dlt.aiRegex));
+console.log("gs1dlt.aiMaps = "+JSON.stringify(gs1dlt.aiMaps));
+console.log("gs1dlt.aiShortCode = "+JSON.stringify(gs1dlt.aiShortCode));
+console.log("gs1dlt.aiQualifiers = "+JSON.stringify(gs1dlt.aiQualifiers));
+console.log("gs1dlt.shortCodeToNumeric = "+JSON.stringify(gs1dlt.shortCodeToNumeric));
+console.log("gs1dlt.twoDigitAIs = "+JSON.stringify(gs1dlt.twoDigitAIs));
+console.log("gs1dlt.threeDigitAIs = "+JSON.stringify(gs1dlt.threeDigitAIs));
+console.log("gs1dlt.fourDigitAIs = "+JSON.stringify(gs1dlt.fourDigitAIs));
+*/
+
+</script>
+</body>
+</html>
