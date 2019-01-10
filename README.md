@@ -37,7 +37,9 @@ This toolkit provides six translation methods, as indicated in the overview diag
 
 ## Demo
 
-A simple demonstration is available in [/src/demo](src/demo.html)
+A simple interactive demonstration is available in [/src/demo](src/demo.html)
+
+Download the repository as a .zip, unzip it, open the /src folder and open demo.html in your Web browser.
 
 ## Installation
 
