@@ -37,9 +37,7 @@ This toolkit provides six translation methods, as indicated in the overview diag
 
 ## Demo
 
-A simple interactive demonstration Web page is available in [/src/demo.html](src/demo.html)
-
-Just download this repository as a .zip, unzip it, open the /src folder and open demo.html in your Web browser.
+A simple interactive demonstration Web page is available at ![https://gs1.github.io/GS1DigitalLinkToolkit.js/](https://gs1.github.io/GS1DigitalLinkToolkit.js/)
 
 ## Installation
 
