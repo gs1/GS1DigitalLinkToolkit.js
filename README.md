@@ -37,7 +37,7 @@ This toolkit provides six translation methods, as indicated in the overview diag
 
 ## Demo
 
-A simple interactive demonstration Web page is available at ![https://gs1.github.io/GS1DigitalLinkToolkit.js/](https://gs1.github.io/GS1DigitalLinkToolkit.js/)
+A simple interactive demonstration Web page is available at https://gs1.github.io/GS1DigitalLinkToolkit.js/
 
 ## Installation
 
