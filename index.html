@@ -19,8 +19,8 @@ input.digitalLink { background-color: #FFD9CC; font-size: 1em;}
 textarea.errorMessage { background-color: #FFEEEE; font-size: 1em; height: 3em; width: 100%;}
 select.elementString { background-color: #CCCCFF; font-size: 1em}
 select.digitalLink { background-color: #FFD9CC; font-size: 1em}
-
 input {width: 100%;}
+div.showHide {background-color: #EEEEEE; font-size: 1em; width: 25em; height: 1em; text-align: center; border-radius: 0.8em; padding-top: 0.3em; padding-bottom: 0.3em;}
 </style>
 </head>
 <body>
@@ -37,10 +37,14 @@ input {width: 100%;}
 <tr class="elementString"><td class="label">Input: Element string</td><td><input class="elementString" type="text" v-model="elementStringInput"></td><td class="demobutton"><input class="elementString" type="button" value="Example" @click="demo1"></td></tr>
 <tr class="options"><td class="label">Options</td><td colspan="2">Use alphabetic short names e.g. /gtin/ <select  class="digitalLink" v-model="shortnames"><option value="true">Yes</option><option value="false">No</option></select><br>Custom URI stem&nbsp;<input type="text" class="digitalLink" v-model="uristem" style="width: 80%"></td></tr>
 <tr class="spacer"><td colspan="3">&nbsp;</td></tr>
-<tr class="digitalLink" v-show="digitalLinkOutput !== ''"><td class="label">Output: GS1 Digital Link URI</td><td colspan="2"><input class="digitalLink" type="text" v-model="digitalLinkOutput"></td></tr>
+<tr class="digitalLink" v-show="digitalLinkOutput !== ''"><td class="label">Output: GS1 Digital Link URI</td><td colspan="2"><input class="digitalLink" type="text" :value="digitalLinkOutput"></td></tr>
 <tr class="errorMessage" v-show="error1 !== ''"><td class="label">Error:</td><td colspan="2"><textarea class="errorMessage" v-model="error1"></textarea></td></tr>
 </table>
 &nbsp;<br/>
+<div @click="showHideQRcode" class="showHide" v-if="digitalLinkOutput !== ''">{{showHideMessage[showHide]}}</div>
+<div v-if="showHide==1">
+<img id="qrCode" v-bind:src="qrURI" width="350" height="350"/>
+</div>
 <hr/>
 &nbsp;<br/>
 <h2>Convert GS1 Digital Link URI to GS1 element strings</h2>
@@ -48,7 +52,7 @@ input {width: 100%;}
 <tr class="digitalLink"><td class="label">Input: GS1 Digital Link URI</td><td><input  class="digitalLink" type="text" v-model="digitalLinkInput"></td><td class="demobutton"><input  class="digitalLink" type="button" value="Example"  @click="demo2"></td></tr>
 <tr class="options"><td class="label">Options</td><td colspan="2">Use brackets / human-readable output <select  class="elementString" v-model="brackets"><option value="true">Yes</option><option value="false">No</option></select></td></tr>
 <tr class="spacer"><td colspan="3">&nbsp;</td></tr>
-<tr class="elementString" v-show="elementStringOutput !== ''"><td class="label">Output: Element string</td><td colspan="2"><input class="elementString" type="text" v-model="elementStringOutput"></td></tr>
+<tr class="elementString" v-show="elementStringOutput !== ''"><td class="label">Output: Element string</td><td colspan="2"><input class="elementString" type="text" :value="elementStringOutput"></td></tr>
 <tr class="errorMessage" v-show="error2 !== ''"><td class="label">Error:</td><td colspan="2"><textarea class="errorMessage" v-model="error2"></textarea></td></tr>
 </table>
 
@@ -62,7 +66,9 @@ var shortnames="true";
 var uristem="http://example.org";
 var brackets="true";
 var gs1dlt = new GS1DigitalLinkToolkit();
-
+var showHide=0;
+var showHideMessage=["Show QR code encoded with GS1 Digital Link  URI","Hide QR code encoded with GS1 Digital Link  URI"];
+var qrURI="blank.png";
 
 	var app1 = new Vue({
 		el: "#app1",
@@ -74,9 +80,21 @@ var gs1dlt = new GS1DigitalLinkToolkit();
 			gs1dlt : gs1dlt,
 			shortnames: shortnames,
 			uristem: uristem,
-			brackets: brackets
+			brackets: brackets,
+			showHide: showHide,
+			showHideMessage: showHideMessage,
+			blank: qrURI			
 		},
 		computed : {
+			qrURI: function() {
+				if (this.digitalLinkOutput !== "") {
+					return "https://zxing.org/w/chart?cht=qr&chs=350x350&chld=L&choe=UTF-8&chl="+encodeURIComponent(this.digitalLinkOutput);
+				} else {
+					return this.blank;
+				}
+			},
+		
+			
 			digitalLinkOutput : function() {
 				if (this.elementStringInput !== "") {
 					try {
@@ -112,6 +130,9 @@ var gs1dlt = new GS1DigitalLinkToolkit();
 			},
 			demo2 : function() {
 				this.digitalLinkInput="https://example.org/gtin/054123450013/lot/ABC%26%2B123?3103=000189&3923=2172";
+			},
+			showHideQRcode : function() {
+				this.showHide = 1- this.showHide;
 			}
 		}
 	});
